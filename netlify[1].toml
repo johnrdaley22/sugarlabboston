@@ -1,0 +1,17 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Forces HTTPS — browsers will never load the site over HTTP
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    # Prevents the site from being embedded in iframes on other sites (clickjacking protection)
+    X-Frame-Options = "DENY"
+
+    # Stops browsers from guessing file types (MIME sniffing protection)
+    X-Content-Type-Options = "nosniff"
+
+    # Controls what information is sent when clicking links off the site
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # Restricts what the browser is allowed to load (no cameras, microphones, etc.)
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
