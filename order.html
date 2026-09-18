@@ -70,6 +70,7 @@
     .bg-orange{background:linear-gradient(135deg,#fff3e0,#ffb347);}
     .bg-cookies{background:linear-gradient(135deg,#3a3a3a,#e8e4dc);}
     .bg-redvelvet{background:linear-gradient(135deg,#7a1522,#b23a4a);}
+            .bg-carrot{background:linear-gradient(135deg,#c76a2b,#e8b768);}
     .flavor-body{padding:18px;}
     .flavor-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--text);margin-bottom:5px;}
     .flavor-desc{font-size:0.8rem;color:var(--light);font-weight:300;line-height:1.6;}
@@ -258,38 +259,30 @@
       </div>
       <div class="flavors-grid">
         
-        <div class="flavor-card reveal" id="flavor-Cosmic_Brownie">
-          <div class="new-badge">NEW</div>
-          <div class="flavor-img bg-cosmic"></div>
-          <div class="flavor-body">
-            <div class="flavor-name">Cosmic Brownie</div>
-            <div class="flavor-desc">Fudgy brownie-batter cake dipped in rich dark chocolate, finished with a starry sprinkle swirl.</div>
-          </div>
-        </div>
-        <div class="flavor-card reveal" id="flavor-Orange_Creamsicle">
-          <div class="new-badge">NEW</div>
-          <div class="flavor-img bg-orange"></div>
-          <div class="flavor-body">
-            <div class="flavor-name">Orange Creamsicle</div>
-            <div class="flavor-desc">Bright orange-vanilla cake dipped in a smooth white chocolate coating, just like the frozen treat.</div>
-          </div>
-        </div>
-        <div class="flavor-card reveal" id="flavor-Peanut_Butter_Cup">
-          <div class="new-badge">NEW</div>
-          <div class="flavor-img bg-smores"></div>
-          <div class="flavor-body">
-            <div class="flavor-name">Peanut Butter Cup</div>
-            <div class="flavor-desc">Peanut butter cake dipped in rich milk chocolate, finished with a peanut butter drizzle.</div>
-          </div>
-        </div>
-        <div class="flavor-card reveal" id="flavor-Fluffernutter">
-          <div class="new-badge">NEW</div>
-          <div class="flavor-img bg-peach"></div>
-          <div class="flavor-body">
-            <div class="flavor-name">Fluffernutter</div>
-            <div class="flavor-desc">Peanut butter cake swirled with marshmallow fluff, dipped in a smooth white chocolate coating.</div>
-          </div>
-        </div>
+                  <div class="flavor-card reveal" id="flavor-Carrot_Cake">
+                                <div class="new-badge">NEW</div>
+                                <div class="flavor-img bg-carrot"></div>
+                                <div class="flavor-body">
+                                                <div class="flavor-name">Carrot Cake</div>
+                                                <div class="flavor-desc">Warmly spiced carrot cake dipped in white chocolate, finished with a cream cheese drizzle.</div>
+                                </div>
+                  </div>
+                  <div class="flavor-card reveal" id="flavor-Red_Velvet_Oreo">
+                                <div class="new-badge">NEW</div>
+                                <div class="flavor-img bg-redvelvet"></div>
+                                <div class="flavor-body">
+                                                <div class="flavor-name">Red Velvet Oreo</div>
+                                                <div class="flavor-desc">Rich red velvet cake dipped in white chocolate, rolled in crushed Oreo crumbs.</div>
+                                </div>
+                  </div>
+                  <div class="flavor-card reveal" id="flavor-Peanut_Butter_Cup">
+                                <div class="new-badge">NEW</div>
+                                <div class="flavor-img bg-smores"></div>
+                                <div class="flavor-body">
+                                                <div class="flavor-name">Peanut Butter Cup</div>
+                                                <div class="flavor-desc">Peanut cake dipped in rich milk chocolate, finished with a peanut butter drizzle.</div>
+                                </div>
+                  </div>
         
       </div>
     </section>
@@ -326,50 +319,39 @@
           <div class="flavor-qty-section">
             <span class="fqs-label">Select Flavors &amp; Quantities</span>
             
-              <div class="flavor-qty-row" id="fqrow-Cosmic_Brownie">
-                <div class="fq-info">
-                  <div class="fq-name">Cosmic Brownie</div>
-                  <div class="fq-desc">Fudgy brownie-batter cake dipped in rich dark chocolate, finished with a starry sprinkle swirl.</div>
-                </div>
-                <div class="fq-controls">
-                  <button type="button" class="fq-btn" onclick="changeQty('Cosmic Brownie',-1)">−</button>
-                  <span class="fq-qty" id="fq-Cosmic_Brownie">0</span>
-                  <button type="button" class="fq-btn" onclick="changeQty('Cosmic Brownie',1)">+</button>
-                </div>
-              </div>
-              <div class="flavor-qty-row" id="fqrow-Orange_Creamsicle">
-                <div class="fq-info">
-                  <div class="fq-name">Orange Creamsicle</div>
-                  <div class="fq-desc">Bright orange-vanilla cake dipped in a smooth white chocolate coating, just like the frozen treat.</div>
-                </div>
-                <div class="fq-controls">
-                  <button type="button" class="fq-btn" onclick="changeQty('Orange Creamsicle',-1)">−</button>
-                  <span class="fq-qty" id="fq-Orange_Creamsicle">0</span>
-                  <button type="button" class="fq-btn" onclick="changeQty('Orange Creamsicle',1)">+</button>
-                </div>
-              </div>
-              <div class="flavor-qty-row" id="fqrow-Peanut_Butter_Cup">
-                <div class="fq-info">
-                  <div class="fq-name">Peanut Butter Cup</div>
-                  <div class="fq-desc">Peanut butter cake dipped in rich milk chocolate, finished with a peanut butter drizzle.</div>
-                </div>
-                <div class="fq-controls">
-                  <button type="button" class="fq-btn" onclick="changeQty('Peanut Butter Cup',-1)">−</button>
-                  <span class="fq-qty" id="fq-Peanut_Butter_Cup">0</span>
-                  <button type="button" class="fq-btn" onclick="changeQty('Peanut Butter Cup',1)">+</button>
-                </div>
-              </div>
-              <div class="flavor-qty-row" id="fqrow-Fluffernutter">
-                <div class="fq-info">
-                  <div class="fq-name">Fluffernutter</div>
-                  <div class="fq-desc">Peanut butter cake swirled with marshmallow fluff, dipped in a smooth white chocolate coating.</div>
-                </div>
-                <div class="fq-controls">
-                  <button type="button" class="fq-btn" onclick="changeQty('Fluffernutter',-1)">−</button>
-                  <span class="fq-qty" id="fq-Fluffernutter">0</span>
-                  <button type="button" class="fq-btn" onclick="changeQty('Fluffernutter',1)">+</button>
-                </div>
-              </div>
+                          <div class="flavor-qty-row" id="fqrow-Carrot_Cake">
+                                          <div class="fq-info">
+                                                            <div class="fq-name">Carrot Cake</div>
+                                                            <div class="fq-desc">Warmly spiced carrot cake dipped in white chocolate, finished with a cream cheese drizzle.</div>
+                                          </div>
+                                          <div class="fq-controls">
+                                                            <button type="button" class="fq-btn" onclick="changeQty('Carrot Cake',-1)">-</button>button>
+                                                            <span class="fq-qty" id="fq-Carrot_Cake">0</span>span>
+                                                            <button type="button" class="fq-btn" onclick="changeQty('Carrot Cake',1)">+</button>button>
+                                          </div>
+                          </div>
+                        <div class="flavor-qty-row" id="fqrow-Red_Velvet_Oreo">
+                                        <div class="fq-info">
+                                                          <div class="fq-name">Red Velvet Oreo</div>
+                                                          <div class="fq-desc">Rich red velvet cake dipped in white chocolate, rolled in crushed Oreo crumbs.</div>
+                                        </div>
+                                        <div class="fq-controls">
+                                                          <button type="button" class="fq-btn" onclick="changeQty('Red Velvet Oreo',-1)">-</button>button>
+                                                          <span class="fq-qty" id="fq-Red_Velvet_Oreo">0</span>span>
+                                                          <button type="button" class="fq-btn" onclick="changeQty('Red Velvet Oreo',1)">+</button>button>
+                                        </div>
+                        </div>
+                        <div class="flavor-qty-row" id="fqrow-Peanut_Butter_Cup">
+                                        <div class="fq-info">
+                                                          <div class="fq-name">Peanut Butter Cup</div>
+                                                          <div class="fq-desc">Peanut cake dipped in rich milk chocolate, finished with a peanut butter drizzle.</div>
+                                        </div>
+                                        <div class="fq-controls">
+                                                          <button type="button" class="fq-btn" onclick="changeQty('Peanut Butter Cup',-1)">-</button>button>
+                                                          <span class="fq-qty" id="fq-Peanut_Butter_Cup">0</span>span>
+                                                          <button type="button" class="fq-btn" onclick="changeQty('Peanut Butter Cup',1)">+</button>button>
+                                        </div>
+                        </div>
               
           </div>
 
@@ -488,7 +470,7 @@
     const SUPABASE_URL = 'https://atzqsaodpwxzdidqvikz.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_kk4wzNZjXkIGChWqNNWr7A_dBN12cgm';
     const DASH_PASSWORD = 'sugarlab2026';
-    const FLAVORS = ['Cosmic Brownie','Orange Creamsicle','Peanut Butter Cup','Fluffernutter'];
+          const FLAVORS = ['Carrot Cake','Red Velvet Oreo','Peanut Butter Cup'];
     let allOrders = [];
     let currentFilter = 'all';
     let inventory = {};
