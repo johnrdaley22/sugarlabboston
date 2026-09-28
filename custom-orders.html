@@ -442,8 +442,8 @@
         pickup_time: document.getElementById('copickup').value,
         payment: document.getElementById('copayment').value,
         notes: combinedNotes,
-        total: total,
-        deposit: deposit,
+        total: Math.round(total),
+        deposit: Math.round(deposit),
         quantity: qty,
         status: 'pending',
         submitted: new Date().toLocaleString()
