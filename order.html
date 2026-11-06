@@ -468,6 +468,27 @@
           <div class="dash-stat"><div class="dash-stat-num" id="statPending">0</div><div class="dash-stat-label">Pending</div></div>
         </div>
       </div>
+<details id="mlPanel" style="margin:20px 0;background:#fff;border:1px solid #f2d9d0;border-radius:14px;padding:16px 20px;">
+<summary style="cursor:pointer;font-weight:500;">Thanksgiving Mailing List (<span id="mlCount">0</span>)</summary>
+<div style="margin:12px 0;display:flex;gap:10px;flex-wrap:wrap;">
+<button type="button" id="mlCopy" style="padding:8px 14px;border:1px solid #c97a6b;background:#c97a6b;color:#fff;border-radius:8px;cursor:pointer;">Copy all emails</button>
+<button type="button" id="mlCsv" style="padding:8px 14px;border:1px solid #c97a6b;background:#fff;color:#c97a6b;border-radius:8px;cursor:pointer;">Download CSV</button>
+<button type="button" id="mlRefresh" style="padding:8px 14px;border:1px solid #c97a6b;background:#fff;color:#c97a6b;border-radius:8px;cursor:pointer;">Refresh</button>
+</div>
+<div id="mlRows" style="font-size:.9rem;line-height:1.7;"></div>
+</details>
+<script>
+(function(){
+var U="https://atzqsaodpwxzdidqvikz.supabase.co/rest/v1/mailing_list?select=email,created_at,source&order=created_at.desc",K="sb_publishable_kk4wzNZjXkIGChWqNNWr7A_dBN12cgm",rows=[],loaded=false;
+function render(){document.getElementById('mlCount').textContent=rows.length;var box=document.getElementById('mlRows');box.textContent='';if(!rows.length){box.textContent='No signups yet.';return}
+rows.forEach(function(x){var d=document.createElement('div');d.textContent=x.email+'  -  '+new Date(x.created_at).toLocaleString();box.appendChild(d)})}
+function load(){fetch(U,{headers:{apikey:K,Authorization:'Bearer '+K}}).then(function(r){return r.json()}).then(function(j){rows=Array.isArray(j)?j:[];render()}).catch(function(){document.getElementById('mlRows').textContent='Could not load the list.'})}
+document.getElementById('mlRefresh').onclick=load;
+document.getElementById('mlCopy').onclick=function(){var t=rows.map(function(x){return x.email}).join(', ');if(navigator.clipboard){navigator.clipboard.writeText(t);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Copy all emails'},1500)}};
+document.getElementById('mlCsv').onclick=function(){var t='email,signed_up,source\n'+rows.map(function(x){return [x.email,x.created_at,x.source||''].join(',')}).join('\n');var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/csv'}));a.download='sugarlab-mailing-list.csv';a.click()};
+setInterval(function(){var d=document.getElementById('dashContent');if(d&&d.style.display!=='none'&&!loaded){loaded=true;load()}},1000);
+})();
+</script>
       <div class="inventory-panel">
         <div class="inventory-title">Inventory — Enter available quantity per flavor</div>
         <div class="inventory-grid" id="inventoryGrid"></div>
