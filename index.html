@@ -22,7 +22,14 @@
     .nav-brand{font-family:'Dancing Script',cursive;font-size:1.5rem;color:var(--sage);text-decoration:none;}
     .nav-links{display:flex;gap:32px;list-style:none;}
     .nav-links a{font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color 0.2s;}
-    .nav-links a:hover{color:var(--dusty);}
+.nav-links a:hover{color:var(--dusty);}
+.nav-dd{position:relative;}
+.nav-dd>span{font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);cursor:pointer;outline:none;}
+.nav-dd>span:hover,.nav-dd:focus-within>span{color:var(--dusty);}
+.nav-dd .dd-menu{display:none;position:absolute;right:0;top:100%;padding-top:12px;list-style:none;min-width:170px;}
+.nav-dd:hover .dd-menu,.nav-dd:focus-within .dd-menu{display:block;}
+.nav-dd .dd-menu li{background:#faf4ee;border:1px solid rgba(232,169,154,0.35);border-radius:10px;padding:12px 16px;box-shadow:0 6px 20px rgba(201,122,107,0.18);}
+.nav-dd .dd-menu a{white-space:nowrap;}
     @media(max-width:660px){nav{padding:14px 20px;}.nav-links{gap:16px;}.nav-links a{font-size:0.68rem;}}
 
     /* BUTTONS */
@@ -238,6 +245,9 @@
       <li><a href="#faq">FAQ</a></li>
       <li><a href="order.html" style="color:var(--dusty);font-weight:600;">Order</a></li>
       <li><a href="custom-orders.html">Custom Orders</a></li>
+      <li class="nav-dd"><span tabindex="0">Connect</span>
+        <ul class="dd-menu"><li><a href="list.html">Mailing List</a></li></ul>
+      </li>
     </ul>
   </nav>
 
