@@ -96,7 +96,7 @@ button.go:disabled{opacity:.6}
 var G=[
 {title:"Pecan Pie Bars",rows:[{id:"pecan",desc:"Pack of 4",price:20}]},
 {title:"Homemade Cranberry Sauce",rows:[{id:"cran",desc:"8 oz deli container",price:10}],addon:{id:"cran_glass",label:"Upgrade to a glass jar",short:"Glass jar upgrade",price:2,per:"jar"}},
-{title:"Dinner Rolls",note:"Frozen, ready to bake at home",rows:[{id:"rolls6",desc:"6 rolls",price:10},{id:"rolls12",desc:"12 rolls",price:18}],addon:{id:"rolls_fresh",label:"Make it fresh, ready to eat",short:"Fresh, ready to eat upgrade",price:8,per:"pack"}},
+{title:"Dinner Rolls",rows:[{id:"rolls6",desc:"6 rolls",price:10},{id:"rolls12",desc:"12 rolls",price:18}],fmt:true},
 {title:"Pumpkin Pie Cake Pops",rows:[{id:"pumpkin",desc:"12 cake pops",price:45}]},
 {title:"Brown Butter Chocolate Chip Cookies",rows:[{id:"cookies",desc:"6 cookies",price:24}]}
 ];
@@ -114,11 +114,13 @@ var box=document.getElementById("items");
 G.forEach(function(g){
  var w=mk("div","grp");w.appendChild(mk("div","gtitle",g.title));if(g.note)w.appendChild(mk("div","gnote",g.note));
  g.rows.forEach(function(r){w.appendChild(line(r.id,r.desc,"$"+r.price))});
+ if(g.fmt){var f=mk("div","gnote");f.id="fmt";f.style.cssText="display:none;padding:6px 0 2px;font-size:.9rem;color:#3a2e2a;";f.innerHTML='<strong>Rolls:</strong> <label style="margin-right:12px"><input type="radio" name="rf" value="Frozen, to bake at home" checked> Frozen, bake at home</label><label><input type="radio" name="rf" value="Fresh"> Fresh, ready to eat</label>';w.appendChild(f)}
  if(g.addon){var a=line(g.addon.id,g.addon.label,"+$"+g.addon.price+" per "+g.addon.per,"addon");a.id="ad-"+g.addon.id;w.appendChild(a)}
  box.appendChild(w)});
 function chg(id,n){
  q[id]=Math.max(0,Math.min(20,q[id]+n));
  G.forEach(function(g){if(g.addon){var t=gt(g);if(q[g.addon.id]>t)q[g.addon.id]=t;document.getElementById("ad-"+g.addon.id).className="item addon"+(t>0?" on":"")}});
+ document.getElementById("fmt").style.display=(q.rolls6+q.rolls12)>0?"block":"none";
  Object.keys(q).forEach(function(k){document.getElementById("q-"+k).textContent=q[k]});
  upd()}
 function lines(){
@@ -147,7 +149,7 @@ form.addEventListener("submit",function(e){
  if(!phone)return bad("Please enter a phone number.");
  if(!pay)return bad("Please choose a payment method.");
  go.disabled=true;msg.className="msg";msg.textContent="Placing your order...";
- fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({name:name,email:email,phone:phone,items:lines(),total:total,payment:pay,pickup:day+", "+tm,notes:document.getElementById("notes").value.trim(),status:"pending"})})
+ fetch(U,{method:"POST",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({name:name,email:email,phone:phone,items:lines(),total:total,payment:pay,pickup:day+", "+tm,roll_format:(q.rolls6+q.rolls12)?document.querySelector('input[name="rf"]:checked').value:null,notes:document.getElementById("notes").value.trim(),status:"pending"})})
  .then(function(r){if(!r.ok)throw new Error(r.status);form.style.display="none";document.getElementById("done").style.display="block";window.scrollTo(0,0)})
  .catch(function(){go.disabled=false;bad("Something went wrong. Please try again, or email sugarlabboston@gmail.com.")});
 });
