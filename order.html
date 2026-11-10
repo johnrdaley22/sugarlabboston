@@ -495,6 +495,7 @@ function render(rows){
   d.appendChild(el("div",o.name+"  -  "+o.status.toUpperCase(),"font-weight:500;"));
   d.appendChild(el("div",o.email+"  |  "+o.phone,"font-size:.85rem;"));
   d.appendChild(el("div",new Date(o.created_at).toLocaleString(),"font-size:.8rem;color:#7a6560;"));
+  if(o.pickup)d.appendChild(el("div","Pickup: "+o.pickup,"font-weight:500;color:#7a8c6e;"));
   (o.items||[]).forEach(function(i){d.appendChild(el("div",i.qty+" x "+i.name+" ("+i.desc+") - $"+i.qty*i.price,"font-size:.9rem;margin-top:2px;"))});
   if(o.roll_format)d.appendChild(el("div","Rolls: "+o.roll_format,"font-size:.9rem;"));
   if(o.notes)d.appendChild(el("div","Notes: "+o.notes,"font-size:.9rem;font-style:italic;"));
