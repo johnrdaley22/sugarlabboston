@@ -468,6 +468,47 @@
           <div class="dash-stat"><div class="dash-stat-num" id="statPending">0</div><div class="dash-stat-label">Pending</div></div>
         </div>
       </div>
+<details id="psPanel" open style="margin:20px 0;background:#fff;border:1px solid #f2d9d0;border-radius:14px;padding:16px 20px;">
+<summary style="cursor:pointer;font-weight:500;">Thanksgiving Drop Orders (<span id="psCount">0</span>)</summary>
+<div id="psStats" style="margin:10px 0;font-size:.95rem;"></div>
+<div id="psTally" style="margin:10px 0;padding:12px;background:#faf4ee;border-radius:10px;font-size:.9rem;line-height:1.7;"></div>
+<div style="margin:10px 0;"><button type="button" id="psRefresh" style="padding:8px 14px;border:1px solid #c97a6b;background:#fff;color:#c97a6b;border-radius:8px;cursor:pointer;">Refresh</button></div>
+<div id="psRows"></div>
+</details>
+<script>
+(function(){
+var B="https://atzqsaodpwxzdidqvikz.supabase.co/rest/v1/presale_orders",K="sb_publishable_kk4wzNZjXkIGChWqNNWr7A_dBN12cgm",H={apikey:K,Authorization:"Bearer "+K},loaded=false;
+function el(t,txt,st){var e=document.createElement(t);if(txt)e.textContent=txt;if(st)e.style.cssText=st;return e}
+function setStatus(id,s){fetch(B+"?id=eq."+id,{method:"PATCH",headers:{apikey:K,Authorization:"Bearer "+K,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({status:s})}).then(load)}
+function btn(label,fn){var b=el("button",label,"padding:6px 12px;margin:6px 8px 0 0;border:1px solid #c97a6b;background:#fff;color:#c97a6b;border-radius:8px;cursor:pointer;font-size:.85rem;");b.type="button";b.onclick=fn;return b}
+function render(rows){
+ document.getElementById("psCount").textContent=rows.length;
+ var live=rows.filter(function(o){return o.status!=="cancelled"}),rev=live.reduce(function(a,o){return a+Number(o.total||0)},0),pend=rows.filter(function(o){return o.status==="pending"}).length;
+ document.getElementById("psStats").textContent=live.length+" active orders  |  $"+rev+" total  |  "+pend+" pending";
+ var tally={};live.forEach(function(o){(o.items||[]).forEach(function(i){var k=i.name+" ("+i.desc+")";tally[k]=(tally[k]||0)+i.qty});if(o.roll_format&&o.roll_format!=="Fresh"){tally["Rolls to bake at home (frozen)"]=1+(tally["Rolls to bake at home (frozen)"]||0)}});
+ var tb=document.getElementById("psTally");tb.textContent="";tb.appendChild(el("div","What to bake","font-weight:500;margin-bottom:4px;"));
+ var ks=Object.keys(tally);if(!ks.length){tb.appendChild(el("div","Nothing yet."))}else{ks.forEach(function(k){tb.appendChild(el("div",tally[k]+" x "+k))})}
+ var box=document.getElementById("psRows");box.textContent="";
+ if(!rows.length){box.textContent="No orders yet.";return}
+ rows.forEach(function(o){
+  var d=el("div",null,"border:1px solid #f2d9d0;border-radius:12px;padding:12px 14px;margin-top:10px;"+(o.status==="cancelled"?"opacity:.5;":""));
+  d.appendChild(el("div",o.name+"  -  "+o.status.toUpperCase(),"font-weight:500;"));
+  d.appendChild(el("div",o.email+"  |  "+o.phone,"font-size:.85rem;"));
+  d.appendChild(el("div",new Date(o.created_at).toLocaleString(),"font-size:.8rem;color:#7a6560;"));
+  (o.items||[]).forEach(function(i){d.appendChild(el("div",i.qty+" x "+i.name+" ("+i.desc+") - $"+i.qty*i.price,"font-size:.9rem;margin-top:2px;"))});
+  if(o.roll_format)d.appendChild(el("div","Rolls: "+o.roll_format,"font-size:.9rem;"));
+  if(o.notes)d.appendChild(el("div","Notes: "+o.notes,"font-size:.9rem;font-style:italic;"));
+  d.appendChild(el("div","Total $"+o.total+"  |  "+o.payment,"font-weight:500;margin-top:4px;"));
+  if(o.status==="pending")d.appendChild(btn("Confirm",function(){setStatus(o.id,"confirmed")}));
+  if(o.status==="pending"||o.status==="confirmed")d.appendChild(btn("Picked up",function(){setStatus(o.id,"completed")}));
+  if(o.status!=="cancelled")d.appendChild(btn("Cancel",function(){setStatus(o.id,"cancelled")}));
+  box.appendChild(d)})
+}
+function load(){fetch(B+"?select=*&order=created_at.desc",{headers:H}).then(function(r){return r.json()}).then(function(j){render(Array.isArray(j)?j:[])}).catch(function(){document.getElementById("psRows").textContent="Could not load orders."})}
+document.getElementById("psRefresh").onclick=load;
+setInterval(function(){var d=document.getElementById("dashContent");if(d&&d.style.display!=="none"&&!loaded){loaded=true;load()}},1000);
+})();
+</script>
 <details id="mlPanel" style="margin:20px 0;background:#fff;border:1px solid #f2d9d0;border-radius:14px;padding:16px 20px;">
 <summary style="cursor:pointer;font-weight:500;">Thanksgiving Mailing List (<span id="mlCount">0</span>)</summary>
 <div style="margin:12px 0;display:flex;gap:10px;flex-wrap:wrap;">
