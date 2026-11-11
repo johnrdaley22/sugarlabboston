@@ -285,6 +285,22 @@
 <div class="flavor-desc">Classic funfetti cake packed with colorful sprinkles.</div>
 </div>
 </div>
+<div class="flavor-card reveal" id="flavor-Dinner_Rolls">
+<div class="new-badge">THANKSGIVING</div>
+<div class="flavor-img bg-lemon"></div>
+<div class="flavor-body">
+<div class="flavor-name">Dinner Rolls</div>
+<div class="flavor-desc">Soft homemade dinner rolls, fresh or frozen to bake at home. 6 for $10, 12 for $18.</div>
+</div>
+</div>
+<div class="flavor-card reveal" id="flavor-Cookies">
+<div class="new-badge">THANKSGIVING</div>
+<div class="flavor-img bg-carrot"></div>
+<div class="flavor-body">
+<div class="flavor-name">Brown Butter Chocolate Chip Cookies</div>
+<div class="flavor-desc">Brown butter cookies loaded with chocolate chips. $24 per half dozen.</div>
+</div>
+</div>
         
       </div>
     </section>
@@ -354,6 +370,41 @@
 <button type="button" class="fq-btn" onclick="changeQty('Funfetti',1)">+</button>
 </div>
 </div>
+<div style="margin:18px 0 6px;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:#7a8c6e;font-weight:500;">Thanksgiving Extras</div>
+<div class="flavor-qty-row" id="fqrow-Dinner_Rolls_6-Pack">
+<div class="fq-info">
+<div class="fq-name">Dinner Rolls (6 rolls)</div>
+<div class="fq-desc">$10</div>
+</div>
+<div class="fq-controls">
+<button type="button" class="fq-btn" onclick="changeQty('Dinner Rolls 6-Pack',-1)">-</button>
+<span class="fq-qty" id="fq-Dinner_Rolls_6-Pack">0</span>
+<button type="button" class="fq-btn" onclick="changeQty('Dinner Rolls 6-Pack',1)">+</button>
+</div>
+</div>
+<div class="flavor-qty-row" id="fqrow-Dinner_Rolls_12-Pack">
+<div class="fq-info">
+<div class="fq-name">Dinner Rolls (12 rolls)</div>
+<div class="fq-desc">$18</div>
+</div>
+<div class="fq-controls">
+<button type="button" class="fq-btn" onclick="changeQty('Dinner Rolls 12-Pack',-1)">-</button>
+<span class="fq-qty" id="fq-Dinner_Rolls_12-Pack">0</span>
+<button type="button" class="fq-btn" onclick="changeQty('Dinner Rolls 12-Pack',1)">+</button>
+</div>
+</div>
+<div id="rollFmtBox" style="display:none;margin:8px 0 4px;font-size:.9rem;"><strong>Rolls:</strong> <label style="margin-right:12px"><input type="radio" name="rollfmt" value="Frozen, to bake at home" checked> Frozen, bake at home</label><label><input type="radio" name="rollfmt" value="Fresh"> Fresh, ready to eat</label></div>
+<div class="flavor-qty-row" id="fqrow-Chocolate_Chip_Cookies_Half_Dozen">
+<div class="fq-info">
+<div class="fq-name">Brown Butter Chocolate Chip Cookies</div>
+<div class="fq-desc">Half dozen, $24</div>
+</div>
+<div class="fq-controls">
+<button type="button" class="fq-btn" onclick="changeQty('Chocolate Chip Cookies Half Dozen',-1)">-</button>
+<span class="fq-qty" id="fq-Chocolate_Chip_Cookies_Half_Dozen">0</span>
+<button type="button" class="fq-btn" onclick="changeQty('Chocolate Chip Cookies Half Dozen',1)">+</button>
+</div>
+</div>
               
           </div>
 
@@ -375,6 +426,10 @@
                 <option value="Sunday">Sunday</option>
               </select>
             </div>
+<div class="form-group" id="pickupTimeGroup" style="display:none;">
+<label for="pickupTime">Pickup Time (Thanksgiving items)</label>
+<select id="pickupTime"><option value="">Select a pickup time...</option><option>8:00 AM - 9:00 AM</option><option>9:00 AM - 10:00 AM</option><option>10:00 AM - 11:00 AM</option><option>11:00 AM - 12:00 PM</option><option>12:00 PM - 1:00 PM</option><option>1:00 PM - 2:00 PM</option><option>2:00 PM - 3:00 PM</option><option>3:00 PM - 4:00 PM</option><option>4:00 PM - 5:00 PM</option><option>5:00 PM - 6:00 PM</option></select>
+</div>
             <div class="form-group full">
               <label for="notes">Special Requests or Notes</label>
               <textarea id="notes" placeholder="Any questions or notes for Haley..."></textarea>
@@ -812,5 +867,53 @@ const FLAVORS = ['Strawberry Shortcake','Red Velvet Oreo','Funfetti'];
       await loadOrders();
     }
   </script>
+<script>
+/* Thanksgiving extras: rolls and cookies in the same cart as the cake pops */
+(function(){
+var EXTRAS=[{n:'Dinner Rolls 6-Pack',label:'Dinner Rolls (6 rolls)',price:10},{n:'Dinner Rolls 12-Pack',label:'Dinner Rolls (12 rolls)',price:18},{n:'Chocolate Chip Cookies Half Dozen',label:'Brown Butter Chocolate Chip Cookies (half dozen)',price:24}];
+EXTRAS.forEach(function(e){flavorQtys[e.n]=0});
+function popsQty(){return FLAVORS.reduce(function(s,f){return s+(flavorQtys[f]||0)},0)}
+function extrasQty(){return EXTRAS.reduce(function(s,e){return s+(flavorQtys[e.n]||0)},0)}
+function extrasTotal(){return EXTRAS.reduce(function(s,e){return s+(flavorQtys[e.n]||0)*e.price},0)}
+function rollsQty(){return (flavorQtys[EXTRAS[0].n]||0)+(flavorQtys[EXTRAS[1].n]||0)}
+function orderTotal(){return Math.round((calcPrice(popsQty())+extrasTotal())*100)/100}
+function rollFormat(){var r=document.querySelector('input[name="rollfmt"]:checked');return r?r.value:'Frozen, to bake at home'}
+function parts(){var p=FLAVORS.filter(function(f){return flavorQtys[f]>0}).map(function(f){return flavorQtys[f]+'x '+f});EXTRAS.forEach(function(e){if(flavorQtys[e.n]>0)p.push(flavorQtys[e.n]+'x '+e.label)});if(rollsQty()>0)p.push('Rolls: '+rollFormat());return p}
+function syncPickup(){
+ var th=extrasQty()>0,sel=document.getElementById('pickup'),mode=th?'t':'w';
+ document.getElementById('rollFmtBox').style.display=rollsQty()>0?'block':'none';
+ document.getElementById('pickupTimeGroup').style.display=th?'block':'none';
+ document.getElementById('pickupTime').required=th;
+ if(sel.getAttribute('data-mode')===mode)return;
+ sel.setAttribute('data-mode',mode);
+ var days=th?['Monday, November 23','Tuesday, November 24','Wednesday, November 25']:['Friday','Saturday','Sunday'];
+ sel.innerHTML='<option value="">Select pickup day...</option>'+days.map(function(d){return '<option value="'+d+'">'+d+'</option>'}).join('');
+}
+window.updatePriceDisplay=function(){
+ syncPickup();
+ var pops=popsQty(),ex=extrasQty(),preview=document.getElementById('pricePreview');
+ if(pops+ex===0){preview.classList.remove('show');return}
+ var total=orderTotal(),deposit=Math.ceil(total/2),b=parts().join(', ');
+ if(pops>0){b+=' · '+pops+' pops x '+(pops<=2?'$4.00/pop':pops<=11?'$3.50/pop':'$3.17/pop')}
+ document.getElementById('totalDisplay').textContent='$'+total.toFixed(2);
+ document.getElementById('breakdownDisplay').innerHTML=b+'<br><strong>50% deposit: $'+deposit.toFixed(2)+'</strong> · Balance at pickup';
+ preview.classList.add('show');
+};
+document.getElementById('orderForm').addEventListener('submit',async function(e){
+ e.preventDefault();e.stopImmediatePropagation();
+ var pops=popsQty(),ex=extrasQty();
+ if(pops+ex===0){alert('Please select at least one item.');return}
+ var btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Submitting...';
+ var total=orderTotal(),deposit=Math.ceil(total/2),summary=parts().join(', '),day=document.getElementById('pickup').value;
+ var order={fname:document.getElementById('fname').value.trim(),lname:document.getElementById('lname').value.trim(),email:document.getElementById('email').value.trim(),phone:document.getElementById('phone').value.trim(),flavor:summary,amount:summary,pickup_date:day,pickup_time:ex>0?document.getElementById('pickupTime').value:day,payment:document.getElementById('payment').value,notes:document.getElementById('notes').value.trim(),total:parseFloat(total.toFixed(2)),deposit:deposit,quantity:pops+ex,status:'pending',submitted:new Date().toLocaleString()};
+ try{
+  var res=await fetch(SUPABASE_URL+'/rest/v1/orders',{method:'POST',headers:{'Content-Type':'application/json',apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,Prefer:'return=minimal'},body:JSON.stringify(order)});
+  if(res.ok||res.status===201){document.getElementById('orderForm').style.display='none';document.getElementById('pricePreview').classList.remove('show');document.getElementById('successCard').classList.add('show')}
+  else{alert('Something went wrong. Please DM @sugarlab.boston on Instagram.');btn.disabled=false;btn.textContent='Submit Order Request'}
+ }catch(err){alert('Connection error. Please try again.');btn.disabled=false;btn.textContent='Submit Order Request'}
+},true);
+syncPickup();
+})();
+</script>
 </body>
 </html>
