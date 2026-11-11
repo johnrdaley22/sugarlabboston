@@ -64,6 +64,7 @@
     .new-badge{position:absolute;top:12px;right:12px;background:var(--dusty);color:var(--white);font-family:'Jost',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.2em;padding:4px 10px;border-radius:20px;z-index:2;}
     .flavor-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;}
     .bg-funfetti{background:linear-gradient(135deg,#f9e8f5,#f0c8e8);}
+.bg-pink{background:linear-gradient(135deg,#f8e0ec,#f0c8dc);}
     .bg-cosmic{background:linear-gradient(135deg,#2a1a3e,#4a2a6e);}
     .bg-lemon{background:linear-gradient(135deg,#fffbe0,#f5e880);}
     .bg-smores{background:linear-gradient(135deg,#3d2b1f,#6b4226);}
@@ -260,38 +261,30 @@
       </div>
       <div class="flavors-grid">
         
-                  <div class="flavor-card reveal" id="flavor-Apple_Cider">
-                                <div class="new-badge">NEW</div>
-                                <div class="flavor-img bg-carrot"></div>
-                                <div class="flavor-body">
-                                                <div class="flavor-name">Apple Cider</div>
-                                                <div class="flavor-desc">Spiced apple cider cake dipped in white chocolate, rolled in cinnamon sugar.</div>
-                                </div>
-                  </div>
-                  <div class="flavor-card reveal" id="flavor-Caramel_Apple">
-                                <div class="new-badge">NEW</div>
-                                <div class="flavor-img bg-redvelvet"></div>
-                                <div class="flavor-body">
-                                                <div class="flavor-name">Caramel Apple</div>
-                                                <div class="flavor-desc">Crisp apple cake dipped in white chocolate, finished with a salted caramel drizzle.</div>
-                                </div>
-                  </div>
-                  <div class="flavor-card reveal" id="flavor-Pumpkin_Oreo">
-                                <div class="new-badge">NEW</div>
-                                <div class="flavor-img bg-smores"></div>
-                                <div class="flavor-body">
-                                                <div class="flavor-name">Pumpkin Oreo</div>
-                                                <div class="flavor-desc">Spiced pumpkin cake dipped in white chocolate, rolled in crushed Oreo crumbs.</div>
-                                </div>
-                  </div>
-                  <div class="flavor-card reveal" id="flavor-Cosmic_Brownie">
-                                <div class="new-badge">NEW</div>
-                                <div class="flavor-img bg-cosmic"></div>
-                                <div class="flavor-body">
-                                                <div class="flavor-name">Cosmic Brownie</div>
-                                                <div class="flavor-desc">Fudgy brownie cake dipped in dark chocolate, finished with colorful sprinkles.</div>
-                                </div>
-                  </div>
+<div class="flavor-card reveal" id="flavor-Strawberry_Shortcake">
+<div class="new-badge">NEW</div>
+<div class="flavor-img bg-pink"></div>
+<div class="flavor-body">
+<div class="flavor-name">Strawberry Shortcake</div>
+<div class="flavor-desc">Strawberry cake coated in a deliciously crunchy blend of Golden Oreos and sweet freeze-dried strawberries.</div>
+</div>
+</div>
+<div class="flavor-card reveal" id="flavor-Red_Velvet_Oreo">
+<div class="new-badge">NEW</div>
+<div class="flavor-img bg-redvelvet"></div>
+<div class="flavor-body">
+<div class="flavor-name">Red Velvet Oreo</div>
+<div class="flavor-desc">Rich red velvet cake mixed with crushed Oreo cookies and topped with white chocolate.</div>
+</div>
+</div>
+<div class="flavor-card reveal" id="flavor-Funfetti">
+<div class="new-badge">NEW</div>
+<div class="flavor-img bg-funfetti"></div>
+<div class="flavor-body">
+<div class="flavor-name">Funfetti</div>
+<div class="flavor-desc">Classic funfetti cake packed with colorful sprinkles.</div>
+</div>
+</div>
         
       </div>
     </section>
@@ -328,50 +321,39 @@
           <div class="flavor-qty-section">
             <span class="fqs-label">Select Flavors &amp; Quantities</span>
             
-                          <div class="flavor-qty-row" id="fqrow-Apple_Cider">
-                    <div class="fq-info">
-                      <div class="fq-name">Apple Cider</div>
-                      <div class="fq-desc">Spiced apple cider cake dipped in white chocolate, rolled in cinnamon sugar.</div>
-                    </div>
-                    <div class="fq-controls">
-                      <button type="button" class="fq-btn" onclick="changeQty('Apple Cider',-1)">-</button>
-                      <span class="fq-qty" id="fq-Apple_Cider">0</span>
-                      <button type="button" class="fq-btn" onclick="changeQty('Apple Cider',1)">+</button>
-                    </div>
-                  </div>
-                  <div class="flavor-qty-row" id="fqrow-Caramel_Apple">
-                    <div class="fq-info">
-                      <div class="fq-name">Caramel Apple</div>
-                      <div class="fq-desc">Crisp apple cake dipped in white chocolate, finished with a salted caramel drizzle.</div>
-                    </div>
-                    <div class="fq-controls">
-                      <button type="button" class="fq-btn" onclick="changeQty('Caramel Apple',-1)">-</button>
-                      <span class="fq-qty" id="fq-Caramel_Apple">0</span>
-                      <button type="button" class="fq-btn" onclick="changeQty('Caramel Apple',1)">+</button>
-                    </div>
-                  </div>
-                  <div class="flavor-qty-row" id="fqrow-Pumpkin_Oreo">
-                    <div class="fq-info">
-                      <div class="fq-name">Pumpkin Oreo</div>
-                      <div class="fq-desc">Spiced pumpkin cake dipped in white chocolate, rolled in crushed Oreo crumbs.</div>
-                    </div>
-                    <div class="fq-controls">
-                      <button type="button" class="fq-btn" onclick="changeQty('Pumpkin Oreo',-1)">-</button>
-                      <span class="fq-qty" id="fq-Pumpkin_Oreo">0</span>
-                      <button type="button" class="fq-btn" onclick="changeQty('Pumpkin Oreo',1)">+</button>
-                    </div>
-                  </div>
-                  <div class="flavor-qty-row" id="fqrow-Cosmic_Brownie">
-                    <div class="fq-info">
-                      <div class="fq-name">Cosmic Brownie</div>
-                      <div class="fq-desc">Fudgy brownie cake dipped in dark chocolate, finished with colorful sprinkles.</div>
-                    </div>
-                    <div class="fq-controls">
-                      <button type="button" class="fq-btn" onclick="changeQty('Cosmic Brownie',-1)">-</button>
-                      <span class="fq-qty" id="fq-Cosmic_Brownie">0</span>
-                      <button type="button" class="fq-btn" onclick="changeQty('Cosmic Brownie',1)">+</button>
-                    </div>
-                  </div>
+<div class="flavor-qty-row" id="fqrow-Strawberry_Shortcake">
+<div class="fq-info">
+<div class="fq-name">Strawberry Shortcake</div>
+<div class="fq-desc">Strawberry cake coated in a deliciously crunchy blend of Golden Oreos and sweet freeze-dried strawberries.</div>
+</div>
+<div class="fq-controls">
+<button type="button" class="fq-btn" onclick="changeQty('Strawberry Shortcake',-1)">-</button>
+<span class="fq-qty" id="fq-Strawberry_Shortcake">0</span>
+<button type="button" class="fq-btn" onclick="changeQty('Strawberry Shortcake',1)">+</button>
+</div>
+</div>
+<div class="flavor-qty-row" id="fqrow-Red_Velvet_Oreo">
+<div class="fq-info">
+<div class="fq-name">Red Velvet Oreo</div>
+<div class="fq-desc">Rich red velvet cake mixed with crushed Oreo cookies and topped with white chocolate.</div>
+</div>
+<div class="fq-controls">
+<button type="button" class="fq-btn" onclick="changeQty('Red Velvet Oreo',-1)">-</button>
+<span class="fq-qty" id="fq-Red_Velvet_Oreo">0</span>
+<button type="button" class="fq-btn" onclick="changeQty('Red Velvet Oreo',1)">+</button>
+</div>
+</div>
+<div class="flavor-qty-row" id="fqrow-Funfetti">
+<div class="fq-info">
+<div class="fq-name">Funfetti</div>
+<div class="fq-desc">Classic funfetti cake packed with colorful sprinkles.</div>
+</div>
+<div class="fq-controls">
+<button type="button" class="fq-btn" onclick="changeQty('Funfetti',-1)">-</button>
+<span class="fq-qty" id="fq-Funfetti">0</span>
+<button type="button" class="fq-btn" onclick="changeQty('Funfetti',1)">+</button>
+</div>
+</div>
               
           </div>
 
@@ -553,7 +535,7 @@ setInterval(function(){var d=document.getElementById('dashContent');if(d&&d.styl
     const SUPABASE_URL = 'https://atzqsaodpwxzdidqvikz.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_kk4wzNZjXkIGChWqNNWr7A_dBN12cgm';
     const DASH_PASSWORD = 'sugarlab2026';
-          const FLAVORS = ['Apple Cider','Caramel Apple','Pumpkin Oreo','Cosmic Brownie'];
+const FLAVORS = ['Strawberry Shortcake','Red Velvet Oreo','Funfetti'];
     let allOrders = [];
     let currentFilter = 'all';
     let inventory = {};
